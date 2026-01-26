@@ -37,10 +37,17 @@ export async function POST(req: Request) {
       status: "success",
     });
   } catch (err: any) {
+    console.error("🔥 GENERATE ERROR:", err);
+    const msg =
+        err?.response?.data?.error ||
+        err?.message ||
+        JSON.stringify(err, null, 2) ||
+        "Generation failed";
+
     doc.status = "failed";
-    doc.errorMessage = err?.message || "Generation failed";
+    doc.errorMessage = msg;
     await doc.save();
 
-    return NextResponse.json({ error: doc.errorMessage }, { status: 500 });
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
