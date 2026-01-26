@@ -13,6 +13,10 @@
 # testing
 /coverage
 
+node_modules
+.env.local
+.next
+
 # next.js
 /.next/
 /out/
