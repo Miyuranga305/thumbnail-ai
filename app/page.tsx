@@ -70,7 +70,6 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useThumbStore } from "@/store/useThumbStore";
@@ -162,24 +161,27 @@ export default function HomePage() {
   return (
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-5xl space-y-6">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-bold">AI Thumbnail Generator (Demo)</h1>
-            <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          {/* Left: title */}
+          <div className="min-w-0">
+            <h1 className="text-xl font-bold sm:text-2xl">
+              AI Thumbnail Generator (Demo)
+            </h1>
+            <p className="mt-1 text-sm text-muted-foreground">
               Upload an image + prompt + settings → generate → save to history.
             </p>
           </div>
 
-          <Link href="/history">
-            <Button variant="outline">View History</Button>
-          </Link>
-          <div className="flex items-center gap-2">
-  <ThemeToggle />
-  <Link href="/history">
-    <Button variant="outline">View History</Button>
-  </Link>
-</div>
+          {/* Right: actions */}
+          <div className="flex flex-wrap items-center gap-2 md:justify-end">
+            <ThemeToggle />
 
+            <Link href="/history" className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full sm:w-auto">
+                View History
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
