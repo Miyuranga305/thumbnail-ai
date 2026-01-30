@@ -77,6 +77,7 @@ import { useThumbStore } from "@/store/useThumbStore";
 import ControlsPanel from "@/components/ui/ControlsPanel";
 import PromptForm from "@/components/ui/PromptForm";
 import UploadDropzone from "@/components/ui/UploadDropzone";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function HomePage() {
   const {
@@ -172,6 +173,13 @@ export default function HomePage() {
           <Link href="/history">
             <Button variant="outline">View History</Button>
           </Link>
+          <div className="flex items-center gap-2">
+  <ThemeToggle />
+  <Link href="/history">
+    <Button variant="outline">View History</Button>
+  </Link>
+</div>
+
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
