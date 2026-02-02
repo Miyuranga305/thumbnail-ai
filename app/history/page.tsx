@@ -4,10 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
+import AppShell from "@/components/ui/AppShell";
+import ThumbnailGrid from "@/components/ui/ThumbnailGrid";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import ThumbnailGrid from "@/components/ui/ThumbnailGrid";
 
 type Thumb = {
   _id: string;
@@ -24,8 +26,8 @@ export default function HistoryPage() {
   const [loading, setLoading] = useState(false);
 
   const [search, setSearch] = useState("");
-  const [style, setStyle] = useState<string>("");
-  const [resolution, setResolution] = useState<string>("");
+  const [style, setStyle] = useState("");
+  const [resolution, setResolution] = useState("");
 
   async function fetchHistory() {
     setLoading(true);
@@ -47,9 +49,8 @@ export default function HistoryPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // refetch when filters change (simple debounce)
   useEffect(() => {
-    const t = setTimeout(() => fetchHistory(), 300);
+    const t = setTimeout(() => fetchHistory(), 250);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, style, resolution]);
@@ -60,68 +61,81 @@ export default function HistoryPage() {
   }, [items.length, loading]);
 
   return (
-    <main className="min-h-screen p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-bold">Generation History</h1>
-            <p className="text-sm text-muted-foreground">{countText}</p>
-          </div>
-
-          <Link href="/">
-            <Button variant="outline">Back to Generator</Button>
-          </Link>
+    <AppShell
+      title="History"
+      subtitle="Search and filter your thumbnail generations"
+      right={
+        <Link href="/" className="hidden sm:block">
+          <Button size="sm" variant="secondary">
+            New generation
+          </Button>
+        </Link>
+      }
+    >
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-2">
+          <h1 className="text-2xl font-bold tracking-tight">Generation History</h1>
+          <Badge variant="outline" className="rounded-xl">
+            {countText}
+          </Badge>
         </div>
 
-        <Card className="rounded-2xl">
-          <CardHeader>
-            <CardTitle>Search & Filters</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-4">
-            <Input
-              placeholder="Search by prompt..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-
-            <select
-              className="h-10 rounded-md border bg-background px-3 text-sm"
-              value={style}
-              onChange={(e) => setStyle(e.target.value)}
-            >
-              <option value="">All styles</option>
-              <option value="realistic">Realistic</option>
-              <option value="artistic">Artistic</option>
-              <option value="cartoon">Cartoon</option>
-              <option value="minimalist">Minimalist</option>
-            </select>
-
-            <select
-              className="h-10 rounded-md border bg-background px-3 text-sm"
-              value={resolution}
-              onChange={(e) => setResolution(e.target.value)}
-            >
-              <option value="">All resolutions</option>
-              <option value="512x512">512x512</option>
-              <option value="1024x1024">1024x1024</option>
-              <option value="1920x1080">1920x1080</option>
-            </select>
-
-            <Button
-              variant="secondary"
-              onClick={() => {
-                setSearch("");
-                setStyle("");
-                setResolution("");
-              }}
-            >
-              Reset
-            </Button>
-          </CardContent>
-        </Card>
-
-        <ThumbnailGrid items={items} />
+        <Link href="/" className="sm:hidden">
+          <Button variant="secondary" className="w-full">
+            New generation
+          </Button>
+        </Link>
       </div>
-    </main>
+
+      <Card className="mb-6 rounded-3xl">
+        <CardHeader>
+          <CardTitle>Search & Filters</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-4">
+          <Input
+            placeholder="Search by prompt..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <select
+            className="h-10 rounded-2xl border bg-background px-3 text-sm"
+            value={style}
+            onChange={(e) => setStyle(e.target.value)}
+          >
+            <option value="">All styles</option>
+            <option value="realistic">Realistic</option>
+            <option value="artistic">Artistic</option>
+            <option value="cartoon">Cartoon</option>
+            <option value="minimalist">Minimalist</option>
+          </select>
+
+          <select
+            className="h-10 rounded-2xl border bg-background px-3 text-sm"
+            value={resolution}
+            onChange={(e) => setResolution(e.target.value)}
+          >
+            <option value="">All resolutions</option>
+            <option value="512x512">512x512</option>
+            <option value="1024x1024">1024x1024</option>
+            <option value="1920x1080">1920x1080</option>
+          </select>
+
+          <Button
+            variant="outline"
+            className="rounded-2xl"
+            onClick={() => {
+              setSearch("");
+              setStyle("");
+              setResolution("");
+            }}
+          >
+            Reset
+          </Button>
+        </CardContent>
+      </Card>
+
+      <ThumbnailGrid items={items} />
+    </AppShell>
   );
 }
