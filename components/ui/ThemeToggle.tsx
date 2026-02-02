@@ -22,7 +22,7 @@ export default function ThemeToggle() {
       aria-label="Toggle theme"
       aria-pressed={isDark}
       className={cn(
-        "relative flex h-9 w-16 items-center rounded-full border",
+        "relative flex h-9 w-16 items-center rounded-full border cursor cursor-pointer",
         "transition-colors duration-300 ease-out",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         "ring-offset-background",

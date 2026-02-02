@@ -35,7 +35,7 @@ export default function AppShell({
             ) : null}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ">
             <ThemeToggle />
             <Link href="/history">
               <Button variant="outline" size="sm">

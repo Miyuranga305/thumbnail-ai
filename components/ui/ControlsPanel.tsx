@@ -60,7 +60,7 @@ export default function ControlsPanel({
                 type="button"
                 onClick={() => onChange({ resolution: r.key })}
                 className={[
-                  "rounded-2xl border p-3 text-left transition",
+                  "rounded-2xl border p-3 text-left transition cursor-pointer",
                   "bg-background/60 hover:bg-background",
                   "shadow-sm",
                   active
@@ -97,7 +97,7 @@ export default function ControlsPanel({
                 type="button"
                 onClick={() => onChange({ stylePreset: s })}
                 className={[
-                  "rounded-full border px-3 py-1 text-sm transition",
+                  "rounded-full border px-3 py-1 text-sm transition cursor-pointer",
                   active
                     ? "bg-foreground text-background border-foreground"
                     : "bg-background/60 text-foreground border-border hover:bg-background",
