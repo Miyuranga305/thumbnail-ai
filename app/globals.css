@@ -123,3 +123,11 @@
     @apply bg-background text-foreground;
   }
 }
+input[type="range"] {
+  accent-color: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  button {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
